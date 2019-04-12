@@ -1,0 +1,15 @@
+.text-area {
+    text-area-background: black ;
+    -fx-font-family: Consolas;
+    -fx-font-size: 10;
+    -fx-text-fill: #ffffff;
+    -fx-line-spacing: 0em;
+}
+
+.text-area .content {
+    -fx-background-color: text-area-background ;
+}
+
+.text-area *.text {
+    -fx-text-alignment: center;
+}
