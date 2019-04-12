@@ -3,6 +3,8 @@ package models;
 import enums.Direction;
 import lombok.Data;
 
+import java.io.BufferedReader;
+
 @Data
 public class Player extends GameObject {
 
@@ -18,7 +20,7 @@ public class Player extends GameObject {
     }
 
     @Override
-    protected String draw() {
+    public BufferedReader draw() {
         setUpModelPath();
         return super.draw();
     }
