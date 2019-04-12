@@ -1,7 +1,7 @@
 
-
 Control:
 W - go forward
 A - turn left
 D - turn right
-X - shot arrow
+SPACE - shot arrow
+I - show game instruction

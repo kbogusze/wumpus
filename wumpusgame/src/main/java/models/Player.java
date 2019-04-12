@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.io.BufferedReader;
 
+import static enums.Direction.*;
+
 @Data
 public class Player extends GameObject {
 
@@ -42,4 +44,37 @@ public class Player extends GameObject {
         }
     }
 
+    public void turnRigh() {
+        switch (direction) {
+            case FORWARD :
+                this.direction = RIGHT;
+                break;
+            case BACKWARD :
+                this.direction = LEFT;
+                break;
+            case LEFT :
+                this.direction = FORWARD;
+                break;
+            case RIGHT :
+                this.direction = BACKWARD;
+                break;
+        }
+    }
+
+    public void turnLeft() {
+        switch (direction) {
+            case FORWARD :
+                this.direction = LEFT;
+                break;
+            case BACKWARD :
+                this.direction = RIGHT;
+                break;
+            case LEFT :
+                this.direction = BACKWARD;
+                break;
+            case RIGHT :
+                this.direction = FORWARD;
+                break;
+        }
+    }
 }

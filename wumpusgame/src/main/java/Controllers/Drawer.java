@@ -8,7 +8,8 @@ import java.io.InputStreamReader;
 
 public class Drawer {
     static final String STATIC_HEADER_PATH = "background/header";
-    static final String STATIC_INSTRUCTION_PATH = "background/instruction";
+    static final String STATIC_CONTROL_PATH = "background/control";
+    static final String STATIC_INFO_PATH = "background/info";
 
     public void drawFile(String path ,TextArea textArea){
         InputStream is = getClass().getClassLoader().getResourceAsStream(path);
@@ -23,10 +24,15 @@ public class Drawer {
     }
 
     public void drawInstruction(TextArea textArea) {
-        drawFile(STATIC_INSTRUCTION_PATH, textArea);
+        drawFile(STATIC_CONTROL_PATH, textArea);
     }
 
     public void drawFromStream(BufferedReader reader, TextArea textArea){
         reader.lines().forEach(s -> textArea.appendText(s + "\n"));
     }
+
+    public void drawInfo(TextArea textArea) {
+        drawFile(STATIC_INFO_PATH, textArea);
+    }
+
 }
