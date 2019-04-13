@@ -1,10 +1,36 @@
-wumpus
+# HUNT THE WUMPUS GAME
 ======
+My own implementation of old school game "HUNT THE WUMPUS" from 70s. Hunt the Wumpus is a text-based adventure game, the turn-based game has the player trying to avoid fatal bottomless pits. The goal is to fire one of their "crooked arrows" through the caves to kill the Wumpus.
 
-A simple test designed for the interview process at Connected Health Services. 
+![huntgameplay](https://user-images.githubusercontent.com/21298169/56085533-2d766900-5e45-11e9-8a01-e2109b03c25d.JPG)
 
-Please fork this repo in your account and develop a Java program that implements the rules for the Wumpus Game (see included Powerpoint). You are expected to write the complete game logic, and use simple text interactions to drive the game play (like the text-based adventure games from the old days, http://en.wikipedia.org/wiki/Text-based_game).
+# To run application:
 
-Bonus points for unit tests ;).
+1. Clone repository from GIT or download zip with source code
+2. Go inside project folder with command line tool or git bash
+```
+cd wumpusgame
+```
+3. Build application with maven command
 
-Please use Eclipse as your IDE and whatever version of Java you are most confortable with (Scala or Groovy also welcomed). Use whatever framework you prefer for your unit tests.
+```
+mvn clean install 
+```
+
+4. Move to target folder
+```
+cd target
+```
+
+5. Run application jar with java
+```
+java -jar wumpusgame-1.0-SNAPSHOT
+```
+6. Enjoy the game :)
+
+Requirements:
+
+* JRE version 1.8.60+
+* Apache Maven version 3.3+
+
+
