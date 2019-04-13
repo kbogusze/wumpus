@@ -22,6 +22,10 @@ public class Board {
         setUpTips();
     }
 
+    public boolean outOfBoard(int x, int y) {
+        return x < 0 || y < 0 || x >= board.length || y >= board[x].length;
+    }
+
     private void setUpTips() {
         for (int x = 0; x < board.length; x++)
         {
@@ -35,34 +39,20 @@ public class Board {
         }
     }
 
-    private boolean hasPitNext(int x, int y) {
+    public boolean hasPitNext(int x, int y) {
         return hasPit(x + 1,y) || hasPit(x - 1,y) || hasPit(x,y + 1) || hasPit(x,y - 1);
     }
 
     public boolean hasPit(int x, int y) {
-        boolean result = false;
-        if (outOfBoard(x,y))
-            result = false;
-        else if (board[x][y].getObject() != null && (board[x][y].getObject() instanceof Pit))
-            result = true;
-        return result;
+        return containsObject( x,  y, obj -> obj instanceof Pit);
     }
 
-    private boolean outOfBoard(int x, int y) {
-        return x < 0 || y < 0 || x > (board.length - 1) || y > (board[x].length - 1);
-    }
-
-    private boolean hasWumpusNext(int x, int y) {
+    public boolean hasWumpusNext(int x, int y) {
         return hasWumpus(x + 1,y) || hasWumpus(x - 1,y) || hasWumpus(x, y + 1) || hasWumpus(x,y - 1);
     }
 
     public boolean hasWumpus(int x, int y) {
-        boolean result = false;
-        if (outOfBoard(x,y))
-            result = false;
-        else if (board[x][y].getObject() != null && (board[x][y].getObject() instanceof Wumpus))
-            result = true;
-        return result;
+        return containsObject( x,  y, obj -> obj instanceof Wumpus);
     }
 
     private void createCells(){
@@ -110,17 +100,78 @@ public class Board {
     }
 
     public Cell findPlayerCell() {
+        return findByType(obj -> obj instanceof  Player);
+    }
+
+    public Cell findByType(Predicate predicate) {
         Cell result = null;
         for (int x = 0; x < board.length; x++)
         {
             for (int y = 0; y < board[x].length; y++)
             {
-                if(board[x][y].getObject() != null && board[x][y].getObject() instanceof Player) {
+                if(board[x][y].getObject() != null && predicate.matches(board[x][y].getObject())) {
                     result = board[x][y];
                     break;
                 }
             }
         }
         return result;
+    }
+
+    public Point findPlayerCellCordinates() {
+        Point result = new Point();
+        for (int x = 0; x < board.length; x++)
+        {
+            for (int y = 0; y < board[x].length; y++)
+            {
+                if(board[x][y].getObject() != null && board[x][y].getObject() instanceof Player) {
+                    result.setX(x);
+                    result.setY(y);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public Point getNextPoint(Player player) {
+        Point playerCell = findPlayerCellCordinates();
+        return player.getNextPoint(playerCell);
+    }
+
+    public void movePlayer(Player player, Point nextPoint) {
+        if (!outOfBoard(nextPoint.getX(),nextPoint.getY())) {
+            findPlayerCell().setObject(null);
+            board[nextPoint.getX()][nextPoint.getY()].setObject(player);
+        }
+    }
+
+    public boolean hasTreasure(int x, int y) {
+        return containsObject( x,  y, obj -> obj instanceof Treasure);
+    }
+
+    public boolean containsObject(int x, int y,Predicate predicate){
+        boolean result = false;
+        if (outOfBoard(x,y))
+            result = false;
+        else if (board[x][y].getObject() != null && predicate.matches(board[x][y].getObject()))
+            result = true;
+        return result;
+    }
+
+    public boolean onTarget(Player player) {
+        boolean result = false;
+        Point nextPoint = player.getNextPoint(findPlayerCellCordinates());
+        while (!result && !outOfBoard(nextPoint.getX(), nextPoint.getY())) {
+            if (hasWumpus(nextPoint.getX(), nextPoint.getY())) {
+                result = true;
+            }
+            nextPoint = player.getNextPoint(nextPoint);
+        }
+        return result;
+    }
+
+    interface Predicate{
+        boolean matches(GameObject object);
     }
 }

@@ -42,4 +42,10 @@ class AudioPlayerTest {
         File f = new File(getClass().getClassLoader().getResource(AudioPlayer.STATIC_WUMPUS_PATH).getFile());
         assertTrue(f.exists());
     }
+
+    @Test
+    void checkWallAudioInResources() {
+        File f = new File(getClass().getClassLoader().getResource(AudioPlayer.STATIC_WALL_PATH).getFile());
+        assertTrue(f.exists());
+    }
 }

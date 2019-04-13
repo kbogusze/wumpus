@@ -39,4 +39,41 @@ class PlayerTest {
         obj.draw();
         assertTrue(obj.getMODEL_PATH().equals(Player.LEFT_MODEL));
     }
+
+    @Test
+    void turnRigh() {
+    }
+
+    @Test
+    void turnLeft() {
+    }
+
+    @Test
+    void moveForward() {
+        Point p = new Point(0,0);
+        Player player = new Player();
+        player.getNextPoint(p);
+        Point result = new Point(-1,0);
+        assertEquals(player.getNextPoint(p),result);
+    }
+
+    @Test
+    void moveLeft() {
+        Point p = new Point(0,0);
+        Player player = new Player();
+        player.turnLeft();
+        player.getNextPoint(p);
+        Point result = new Point(0,-1);
+        assertEquals(player.getNextPoint(p),result);
+    }
+
+    @Test
+    void moveRight() {
+        Point p = new Point(0,0);
+        Player player = new Player();
+        player.turnRight();
+        player.getNextPoint(p);
+        Point result = new Point(0,1);
+        assertEquals(player.getNextPoint(p),result);
+    }
 }

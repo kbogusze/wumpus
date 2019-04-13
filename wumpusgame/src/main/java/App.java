@@ -9,11 +9,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/window.fxml"));
-        Parent root = loader.load();
+        Parent root = new FXMLLoader(getClass().getClassLoader().getResource("fxml/window.fxml")).load();
         Image applicationIcon = new Image(getClass().getResource("/icon/favicon.png").toString());
         primaryStage.getIcons().add(applicationIcon);
-        primaryStage.setTitle("Hunt the Wumpus");
+        primaryStage.setTitle("HUNT THE WUMPUS");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.show();

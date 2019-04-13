@@ -7,22 +7,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Drawer {
-    static final String STATIC_HEADER_PATH = "background/header";
-    static final String STATIC_CONTROL_PATH = "background/control";
-    static final String STATIC_INFO_PATH = "background/info";
+    public static final String STATIC_HEADER_PATH = "background/header";
+    public static final String STATIC_CONTROL_PATH = "background/control";
+    public static final String STATIC_INFO_PATH = "background/info";
+    public static final String STATIC_WALL_PATH = "models/wall";
+    public static final String STATIC_VICTORY_PATH = "models/victory";
 
     private TextArea textArea;
 
     public Drawer(TextArea textArea) {
         this.textArea = textArea;
-    }
-
-    public void drawFile(String path){
-        InputStream is = getClass().getClassLoader().getResourceAsStream(path);
-        if (is != null) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            drawFromStream(reader);
-        }
     }
 
     public void drawHeader() {
@@ -41,7 +35,27 @@ public class Drawer {
         drawFile(STATIC_INFO_PATH);
     }
 
+    public void drawWall() {
+        drawFile(STATIC_WALL_PATH);
+    }
+
     public void drawLevel(int level, int points, int arrowsNumber) {
         textArea.appendText("LEVEL: " + level + "  POINTS: " + points + " ARROWS: " + arrowsNumber + "\n");
+        textArea.appendText("MAZE: " + level*3 + "x" +  level*3 + "\n");
+    }
+
+    public void drawFinalScore(int level, int points) {
+        textArea.appendText("YOUR SCORE LEVEL: " + level + "  POINTS: " + points + "\n");
+    }
+
+    public void drawFile(String path){
+        InputStream is = getClass().getClassLoader().getResourceAsStream(path);
+        if (is != null) {
+            drawFromStream(new BufferedReader(new InputStreamReader(is)));
+        }
+    }
+
+    public void drawVictory() {
+        drawFile(STATIC_VICTORY_PATH);
     }
 }

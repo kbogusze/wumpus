@@ -17,6 +17,9 @@ public class Player extends GameObject {
 
     private Direction direction;
 
+    private int points = 0;
+    private int arrowsNumber = 5;
+
     public Player() {
         direction = Direction.FORWARD;
     }
@@ -44,7 +47,7 @@ public class Player extends GameObject {
         }
     }
 
-    public void turnRigh() {
+    public void turnRight() {
         switch (direction) {
             case FORWARD :
                 this.direction = RIGHT;
@@ -76,5 +79,44 @@ public class Player extends GameObject {
                 this.direction = FORWARD;
                 break;
         }
+    }
+
+    public Point getNextPoint(Point currentCell) {
+        int x = currentCell.getX();
+        int y = currentCell.getY();
+        switch (direction) {
+            case FORWARD :
+                x += -1;
+                break;
+            case BACKWARD :
+                x += 1;
+                break;
+            case LEFT :
+                y += -1;
+                break;
+            case RIGHT :
+                y += 1;
+                break;
+        }
+
+        return new Point(x,y);
+    }
+
+    public void restartSkills() {
+        this.points = 0;
+        this.arrowsNumber = 5;
+    }
+
+    public void shootArrow() {
+        this.arrowsNumber--;
+    }
+
+    public void levelUp() {
+        this.arrowsNumber += 3;
+        this.points += 1000;
+    }
+
+    public void grabTreasure(int level) {
+        this.points += 250 * level;
     }
 }

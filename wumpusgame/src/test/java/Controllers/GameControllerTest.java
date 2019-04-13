@@ -13,5 +13,4 @@ class GameControllerTest {
         assertNotNull(board.getBoard()[level][level]);
     }
 
-
 }
