@@ -1,5 +1,5 @@
 # HUNT THE WUMPUS GAME
-======
+
 My own implementation of old school game "HUNT THE WUMPUS" from 70s. Hunt the Wumpus is a text-based adventure game, the turn-based game has the player trying to avoid fatal bottomless pits. The goal is to fire one of their "crooked arrows" through the caves to kill the Wumpus.
 
 ![huntgameplay](https://user-images.githubusercontent.com/21298169/56085533-2d766900-5e45-11e9-8a01-e2109b03c25d.JPG)
