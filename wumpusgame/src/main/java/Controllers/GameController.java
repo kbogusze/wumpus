@@ -89,16 +89,19 @@ public class GameController implements Initializable {
     }
 
     private void playShootOnTargetScenario() {
-        nextLevel();
+        player.wumpusDefeated();
         audioPlayer.playDeadWumpus();
         drawer.drawVictory();
         state = GameState.STOP;
     }
 
     private void nextLevel() {
+        audioPlayer.playStart();
+        drawer.drawNextLevel();
         level++;
         player.levelUp();
         createBoard();
+        state = GameState.STOP;
     }
 
     private void turnRight() {
@@ -127,11 +130,20 @@ public class GameController implements Initializable {
     private void playGoForwardScenario(Point nextPoint) {
         if (board.hasTreasure(nextPoint.getX(), nextPoint.getY())) {
             playTreasureFoundScenario();
+            board.movePlayer(player, nextPoint);
+        } else if (board.isEscapeCell(nextPoint) && isLevelComplated()){
+            nextLevel();
+        } else {
+            board.movePlayer(player, nextPoint);
+            drawGame();
         }
-        board.movePlayer(player, nextPoint);
     }
 
-    private void playTreasureFoundScenario() {
+    private boolean isLevelComplated() {
+        return player.isTreasuryFound() && player.isWumpusDefeated();
+    }
+
+    private void  playTreasureFoundScenario() {
         player.grabTreasure(level);
         drawer.drawFile(Treasure.STATIC_MODEL_PATH);
         audioPlayer.playStart();

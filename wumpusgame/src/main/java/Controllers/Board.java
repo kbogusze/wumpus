@@ -3,6 +3,7 @@ package Controllers;
 import lombok.Data;
 import models.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -11,7 +12,7 @@ public class Board {
     Cell[][] board;
 
     public Board(int level) {
-        this.board = new Cell[level*3][level*3];
+        this.board = new Cell[level+3][level+3];
         createCells();
     }
 
@@ -31,6 +32,7 @@ public class Board {
         {
             for (int y = 0; y < board[x].length; y++)
             {
+                board[x][y].setItems(new ArrayList<>());
                 if (hasWumpusNext(x ,y))
                     board[x][y].getItems().add(new Smell());
                 if (hasPitNext(x ,y))
@@ -164,11 +166,21 @@ public class Board {
         Point nextPoint = player.getNextPoint(findPlayerCellCordinates());
         while (!result && !outOfBoard(nextPoint.getX(), nextPoint.getY())) {
             if (hasWumpus(nextPoint.getX(), nextPoint.getY())) {
+                killWumpus(nextPoint);
                 result = true;
             }
             nextPoint = player.getNextPoint(nextPoint);
         }
         return result;
+    }
+
+    private void killWumpus(Point location) {
+        board[location.getX()][location.getY()].setObject(null);
+        setUpTips();
+    }
+
+    public boolean isEscapeCell(Point nextPoint) {
+        return board[nextPoint.getX()][nextPoint.getY()].isEscapeCell();
     }
 
     interface Predicate{

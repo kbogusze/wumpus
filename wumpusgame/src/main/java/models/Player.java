@@ -19,6 +19,8 @@ public class Player extends GameObject {
 
     private int points = 0;
     private int arrowsNumber = 5;
+    boolean wumpusDefeated = false;
+    boolean treasuryFound = false;
 
     public Player() {
         direction = Direction.FORWARD;
@@ -105,6 +107,8 @@ public class Player extends GameObject {
     public void restartSkills() {
         this.points = 0;
         this.arrowsNumber = 5;
+        treasuryFound = false;
+        wumpusDefeated = false;
     }
 
     public void shootArrow() {
@@ -112,11 +116,19 @@ public class Player extends GameObject {
     }
 
     public void levelUp() {
-        this.arrowsNumber += 3;
-        this.points += 1000;
+        this.points += 2000;
+        treasuryFound = false;
+        wumpusDefeated = false;
     }
 
     public void grabTreasure(int level) {
         this.points += 250 * level;
+        treasuryFound = true;
+    }
+
+    public void wumpusDefeated() {
+        wumpusDefeated = true;
+        this.arrowsNumber += 3;
+        this.points += 1000;
     }
 }

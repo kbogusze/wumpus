@@ -37,5 +37,11 @@ class DrawerTest {
         assertTrue(f.exists());
     }
 
+    @Test
+    void checkNextLevelModelInResources() {
+        File f = new File(getClass().getClassLoader().getResource(Drawer.STATIC_NEXT_LEVEL_PATH).getFile());
+        assertTrue(f.exists());
+    }
+
 
 }
