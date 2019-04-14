@@ -131,4 +131,8 @@ public class Player extends GameObject {
         this.arrowsNumber += 3;
         this.points += 1000;
     }
+
+    public boolean hasArrow() {
+        return arrowsNumber > 0;
+    }
 }

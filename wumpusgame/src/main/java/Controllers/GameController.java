@@ -81,11 +81,14 @@ public class GameController implements Initializable {
     }
 
     private void shootArrow() {
-        player.shootArrow();
-        if(board.onTarget(player))
-            playShootOnTargetScenario();
-        else
-            playWallScenario();
+        if (player.hasArrow()) {
+            player.shootArrow();
+            if (board.onTarget(player))
+                playShootOnTargetScenario();
+            else
+                playWallScenario();
+        } else
+            playWumpusScenario();
     }
 
     private void playShootOnTargetScenario() {
